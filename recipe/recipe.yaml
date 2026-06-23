@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "0.2.2"
+  version: "0.3.0"
   # photo-tagger needs Python >= 3.14, higher than conda-forge's global
   # python_min, so override it here and reference ${{ python_min }} below.
   python_min: "3.14"
@@ -12,7 +12,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/p/photo-tagger/photo_tagger-${{ version }}.tar.gz
-  sha256: d8f506f3de0cee80f77789436becc4c436bf3ccfcea481cacbe6f892f6dcce1f
+  sha256: 861ede3e5238da34aff71d03161611a4900a10c6cdb87aa33cfa8cd64c72b1f9
 
 build:
   number: 0
@@ -29,13 +29,17 @@ requirements:
     - pip
   run:
     - python >=${{ python_min }}
-    - cyclopts >=4.16.1
-    - filelock >=3.29.0
+    - cyclopts >=4.18.0
+    - filelock >=3.29.4
     - httpx >=0.28.1
     - loguru >=0.7.3
+    # photo-tagger talks to every backend through pydantic-ai's OpenAI model,
+    # which imports the `openai` package. The conda-forge `pydantic-ai` ships
+    # only the slim core (no model extras), so depend on `openai` explicitly.
+    - openai >=2.29.0
     - pillow >=12.2.0
     - pydantic >=2.13.4
-    - pydantic-ai >=1.104.0
+    - pydantic-ai >=1.107.0
     - pyexiftool >=0.5.6
     - rawpy >=0.27.0
     - rich >=15.0.0

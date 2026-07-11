@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "0.5.0"
+  version: "0.6.0"
   # photo-tagger needs Python >= 3.14, higher than conda-forge's global
   # python_min, so override it here and reference ${{ python_min }} below.
   python_min: "3.14"
@@ -12,7 +12,7 @@ recipe:
 
 source:
   url: https://pypi.org/packages/source/p/photo-tagger/photo_tagger-${{ version }}.tar.gz
-  sha256: c0e6873027e2f528c237d887beed4c18d2a3b1dcca3f2e4e7dd6696bab5bd82c
+  sha256: 28df6981fa64d4f21709eae460ac0f3b97c8b9e99d9b374ad6db72adf631179c
 
 build:
   number: 0
@@ -25,7 +25,9 @@ outputs:
       script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
       python:
         entry_points:
-          - photo-tagger = photo_tagger.main:app
+          # 0.6.0 wraps the cyclopts app in main() so unhandled crashes can send an anonymous
+          # crash beacon before the traceback surfaces.
+          - photo-tagger = photo_tagger.main:main
     requirements:
       host:
         - python ${{ python_min }}.*

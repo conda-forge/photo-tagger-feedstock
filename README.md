@@ -19,7 +19,8 @@ keeps your originals untouched by creating XMP sidecar files, but it can
 embed the updates directly into each photo with --embed-in-photo.
 
 It requires a running Ollama or LM Studio server that hosts a vision-language
-model, and the ExifTool binary available on PATH.
+model, and the ExifTool binary available on PATH. The optional photo-tagger-gui
+package adds a PySide6 desktop frontend (the `photo-tagger gui` command).
 
 Current build status
 ====================
@@ -41,6 +42,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-photo--tagger-green.svg)](https://anaconda.org/conda-forge/photo-tagger) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/photo-tagger.svg)](https://anaconda.org/conda-forge/photo-tagger) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/photo-tagger.svg)](https://anaconda.org/conda-forge/photo-tagger) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/photo-tagger.svg)](https://anaconda.org/conda-forge/photo-tagger) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-photo--tagger--gui-green.svg)](https://anaconda.org/conda-forge/photo-tagger-gui) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/photo-tagger-gui.svg)](https://anaconda.org/conda-forge/photo-tagger-gui) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/photo-tagger-gui.svg)](https://anaconda.org/conda-forge/photo-tagger-gui) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/photo-tagger-gui.svg)](https://anaconda.org/conda-forge/photo-tagger-gui) |
 
 Installing photo-tagger
 =======================
@@ -52,31 +54,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `photo-tagger` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
-conda install photo-tagger
+conda install photo-tagger photo-tagger-gui
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
-mamba install photo-tagger
+mamba install photo-tagger photo-tagger-gui
 ```
 
-It is possible to list all of the versions of `photo-tagger` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add photo-tagger photo-tagger-gui
+# for installing globally
+pixi global install photo-tagger photo-tagger-gui
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `photo-tagger` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search photo-tagger --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search photo-tagger --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search photo-tagger --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -88,6 +132,8 @@ mamba repoquery whoneeds photo-tagger --channel conda-forge
 # List dependencies of `photo-tagger`:
 mamba repoquery depends photo-tagger --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge

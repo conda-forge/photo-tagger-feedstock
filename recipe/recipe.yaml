@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "0.8.0"
+  version: "0.9.0"
   # photo-tagger needs Python >= 3.14, higher than conda-forge's global
   # python_min, so override it here and reference ${{ python_min }} below.
   python_min: "3.14"
@@ -12,7 +12,7 @@ recipe:
 
 source:
   url: https://pypi.org/packages/source/p/photo-tagger/photo_tagger-${{ version }}.tar.gz
-  sha256: ece916b1cdf60339e23d7c7827038977df88f8dd4e807382da3b7f34a34523b9
+  sha256: 58b4fccba2eb5f749ada5a33e98fc5ec8ae56273fc4744a486bf8ddd6d82d689
 
 build:
   number: 0
@@ -31,21 +31,23 @@ outputs:
     requirements:
       host:
         - python ${{ python_min }}.*
-        - uv-build >=0.11.28,<1.0.0
+        - uv-build >=0.12.16,<1.0.0
         - pip
       run:
         - python >=${{ python_min }}
-        - cyclopts >=4.24.0
-        - filelock >=3.32.5
-        - httpx2 >=2.12.0
+        - cyclopts >=4.25.3
+        - filelock >=4.0.0
+        - httpx2 >=2.13.0
         - loguru >=0.7.3
         # photo-tagger talks to every backend through pydantic-ai's OpenAI model,
         # which imports the `openai` package. The conda-forge `pydantic-ai` ships
         # only the slim core (no model extras), so depend on `openai` explicitly.
-        - openai >=2.29.0
+        # The floor tracks pydantic-ai's own `openai` extra, which wants >=3.8.0
+        # since 2.44. `tiktoken` stays out: the OpenAI model does not import it.
+        - openai >=3.8.0
         - pillow >=12.3.0
         - pydantic >=2.13.5
-        - pydantic-ai >=2.37.0
+        - pydantic-ai >=2.44.0
         - pyexiftool >=0.5.6
         - rawpy >=0.27.1
         - rich >=15.0.0

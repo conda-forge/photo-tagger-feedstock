@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "0.9.0"
+  version: "0.10.0"
   # photo-tagger needs Python >= 3.14, higher than conda-forge's global
   # python_min, so override it here and reference ${{ python_min }} below.
   python_min: "3.14"
@@ -12,7 +12,7 @@ recipe:
 
 source:
   url: https://pypi.org/packages/source/p/photo-tagger/photo_tagger-${{ version }}.tar.gz
-  sha256: 58b4fccba2eb5f749ada5a33e98fc5ec8ae56273fc4744a486bf8ddd6d82d689
+  sha256: f89b62c9d0de475174bd123c3c0536a7e8a59c28ee9e73f0040d99535063d42f
 
 build:
   number: 0
@@ -35,19 +35,19 @@ outputs:
         - pip
       run:
         - python >=${{ python_min }}
-        - cyclopts >=4.25.3
-        - filelock >=4.0.0
-        - httpx2 >=2.13.0
+        - cyclopts >=5.2.0
+        - filelock >=4.1.0
+        - httpx2 >=2.13.1
         - loguru >=0.7.3
         # photo-tagger talks to every backend through pydantic-ai's OpenAI model,
         # which imports the `openai` package. The conda-forge `pydantic-ai` ships
         # only the slim core (no model extras), so depend on `openai` explicitly.
-        # The floor tracks pydantic-ai's own `openai` extra, which wants >=3.8.0
-        # since 2.44. `tiktoken` stays out: the OpenAI model does not import it.
-        - openai >=3.8.0
+        # The floor tracks pydantic-ai's own `openai` extra, which wants >=3.26.0
+        # as of 2.55. `tiktoken` stays out: the OpenAI model does not import it.
+        - openai >=3.26.0
         - pillow >=12.3.0
-        - pydantic >=2.13.5
-        - pydantic-ai >=2.44.0
+        - pydantic >=2.14.0
+        - pydantic-ai >=2.55.0
         - pyexiftool >=0.5.6
         - rawpy >=0.27.1
         - rich >=15.0.0
@@ -82,6 +82,8 @@ outputs:
       run:
         - python >=${{ python_min }}
         - ${{ pin_subpackage("photo-tagger", exact=true) }}
+        # The `gui` extra asks for >=6.12.0, but conda-forge has only 6.11.2 so far.
+        # Raise this floor once 6.12 lands on conda-forge.
         - pyside6 >=6.11.2
     tests:
       - requirements:

@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: "0.9.0"
+  version: "0.10.0"
   # photo-tagger needs Python >= 3.14, higher than conda-forge's global
   # python_min, so override it here and reference ${{ python_min }} below.
   python_min: "3.14"
@@ -12,7 +12,7 @@ recipe:
 
 source:
   url: https://pypi.org/packages/source/p/photo-tagger/photo_tagger-${{ version }}.tar.gz
-  sha256: 58b4fccba2eb5f749ada5a33e98fc5ec8ae56273fc4744a486bf8ddd6d82d689
+  sha256: f89b62c9d0de475174bd123c3c0536a7e8a59c28ee9e73f0040d99535063d42f
 
 build:
   number: 0

@@ -15,7 +15,7 @@ source:
   sha256: f89b62c9d0de475174bd123c3c0536a7e8a59c28ee9e73f0040d99535063d42f
 
 build:
-  number: 0
+  number: 1
   noarch: python
 
 outputs:
@@ -111,7 +111,7 @@ about:
   license_file: LICENSE
   homepage: https://juliobs.com/projects/photo-tagger/
   repository: https://github.com/jbsilva/photo-tagger
-  documentation: https://github.com/jbsilva/photo-tagger
+  documentation: https://docs.tagger.photo/
 
 extra:
   recipe-maintainers:
